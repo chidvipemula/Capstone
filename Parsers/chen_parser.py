@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import pdb
-from BigQuery import BQ
+from big_query import BigQueryClass
 import os
 from google.cloud import bigquery
 
@@ -28,8 +28,9 @@ def missing_table(df):
 
 
 if __name__ == '__main__':
-    client = BQ()
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.environ["GOOGLE_APPLICATION_CREDENTIALS_msba"]
+    client = BigQueryClass()
     sql  = 'SELECT * FROM `infusionsoft-looker-poc.asu_msba_customer_ltv.CONFIDENTIAL_ltv_oppty_table` LIMIT 100'
-    df = client.getResults(sql)
+    df = client.get_results(sql)
     missing_table(df)
     # pdb.set_trace()
